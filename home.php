@@ -32,7 +32,7 @@
     <link href="css/style.css" rel="stylesheet" id="style">
 </head>
 
-<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="landing" style="background-color: white;">
+<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="landing">
     <!-- screen loader -->
     <div class="container-fluid h-100 loader-display">
         <div class="row h-100">
@@ -54,45 +54,75 @@
         </div>
     </div>
 
-        <div class="row my-3 justify-content-center" style="background-color: white;">
-            <div class="col-10 col-md-4 mx-auto"><img src="img/about.png" alt="" class="mw-100"></div>
-        </div>
 
-        <div class="main-container"  style="background-color: white; margin-bottom: 0px;">
-            <!-- page content start -->
 
-            <div class="container mb-4">
-                <div class="card" style="background-color: green; padding-top: 50px;">
-                    <div class="card-body text-left text-md-center">
-                        <!-- <h4 class="mb-3">Internation Fund Transfer.</h4> -->
-                        <h5 class="text-secondary font-weight-normal" style="text-align: center;"><span style="color: white;">Internation Fund Transfer.</span></h5>
-                        
-                        <p class="text-secondary mt-3" style="text-align: center; color: green;"><span style="color: white;">User experienced user interfaces with HTML and CSS also providing flexibility of style color customization. We have created specific website template demos and component library which be used across any demo.</span></p>
-                        <!-- <a href="about.html" class="btn btn-sm btn-default rounded">Read more</a> -->
-                    
-                    <!-- <h4 class="mb-3">Internation Fund Transfer.</h4> -->
-                    <h5 class="text-secondary font-weight-normal" style="text-align: center; padding-top: 70px;"><span style="color: green;">Internation Fund Transfer.</span></h5>
-                    
-                    
-                    <!-- <a href="about.html" class="btn btn-sm btn-default rounded">Read more</a> -->
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0 main has-footer pt-2">
+
+        <div class="container h-100">
+            <!-- Swiper intro -->
+            <div class="swiper-container introduction text-white">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide overflow-hidden text-center">
+                        <div class="row no-gutters h-100">
+                            <div class="col align-self-center px-3">
+                                <img src="img/install-app.png" alt="" class="mw-100 my-5">
+                                <div class="row">
+                                    <div class="container mb-5">
+                                        <h4>Amazing Finance template</h4>
+                                        <p>Lorem ipsum dolor sit amet, consect etur adipiscing elit. Sndisse conv allis.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="swiper-slide overflow-hidden text-center">
+                        <div class="row no-gutters h-100">
+                            <div class="col align-self-center px-3">
+                                <img src="img/about.png" alt="" class="mw-100 my-5">
+                                <div class="row">
+                                    <div class="container mb-5">
+                                        <h4>Best Wallet app</h4>
+                                        <p>Lorem ipsum dolor sit amet, consect etur adipiscing elit. Sndisse conv allis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide overflow-hidden text-center">
+                        <div class="row no-gutters h-100">
+                            <div class="col align-self-center px-3">
+                                <img src="img/install-app.png" alt="" class="mw-100 my-5">
+                                <div class="row">
+                                    <div class="container mb-5">
+                                        <h4>World Class Design</h4>
+                                        <p>Lorem ipsum dolor sit amet, consect etur adipiscing elit. Sndisse conv allis.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
             </div>
+            <!-- Swiper intro ends -->
         </div>
-       
     </main>
 
     <!-- footer-->
-    <!-- footer-->
-    <!-- <div class="footer no-bg-shadow py-3">
+    <div class="footer no-bg-shadow py-3">
         <div class="row justify-content-center">
             <div class="col">
-                <a href="login.html" class="btn btn-default rounded btn-block">Login</a>
+                <a href="login.php" class="btn btn-default rounded btn-block">Login</a>
             </div>
             <div class="col">
-                <a href="signup.html" class="btn btn-outline-default rounded btn-block">Register</a>
+                <a href="signup.php" class="btn btn-outline-default rounded btn-block">Register</a>
             </div>
         </div>
-    </div> -->
+    </div>
 
 
     <!-- Required jquery and libraries -->

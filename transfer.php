@@ -1,3 +1,9 @@
+<?php 
+session_start();
+
+if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
+
+ ?>
 <!doctype html>
 <html lang="en" class="h-100">
 
@@ -30,6 +36,29 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" id="style">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("form").submit(function(event){
+        // Stop form from submitting normally
+        event.preventDefault();
+        
+        /* Serialize the submitted form control values to be sent to the web server with the request */
+        var formValues = $(this).serialize();
+        
+        // Send the form data using post
+        $.post("otp_verification.php", formValues, function(data){
+            // Display the returned data in browser
+            if(data == "success"){
+                window.location.replace("welcome.php");
+            } else{
+                $("#result").html(data);
+            }
+            
+        });
+    });
+});
+</script>
 </head>
 
 <body class="body-scroll d-flex flex-column h-100 menu-overlay" >
@@ -63,50 +92,73 @@
         <header class="header">
             <div class="row">
                 <div class="col-auto px-0">
-                    <button class="btn btn-40 btn-link back-btn" type="button">
+                    <!-- <button class="btn btn-40 btn-link back-btn" type="button">
                         <span class="material-icons">keyboard_arrow_left</span>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="text-left col align-self-center">
                     <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Transfer</h5>
+                        <h5 class="mb-0">Verification</h5>
                     </a>
                 </div>
-                <div class="ml-auto col-auto">
+                <!-- <div class="ml-auto col-auto">
                     <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
                         <figure class="m-0 background">
                             <img src="img/user1.png" alt="">
                         </figure>
                     </a>
-                </div>
+                </div> -->
             </div>
         </header>
 
         <div class="main-container">            
             <div class="container mb-4">
-                <p class="text-center text-secondary mb-1">Enter Amount to transfer</p>
+             
+                <p class="text-center text-secondary mb-1">Enter the code sent to the below details</p>
                 <div class="form-group mb-1">
-                    <input type="text" class="form-control large-gift-card" value="100.00" placeholder="00.00">
+                <p style="text-align: center"><?php echo $_SESSION["phone_number"].'<br>'.$_SESSION["user_email"]; ?></p> <br>
                 </div>
-                <p class="text-center text-secondary mb-4">Available: $ 1,050.00 </p>
+                
 
-               
-                <div class="form-group">
-                    <select class="form-control">
-                        <option>Select Account</option>
-                        <option selected>AMX000xxxxx2546</option>
-                        <option>AMX000xxxxx2691</option>
-                    </select>
+
+                <form>
+                <div id="result" style="color: white; text-align: center"></div>
+                <div class="swiper-container categories2tab1 text-center mb-4">
+                    <div class="swiper-wrapper" style="padding-left: 10px;">
+                    
+                        <div class="swiper-slide">
+                            <input class="form-control" name="a" maxlength="1" size="5" placeholder="x">
+                        </div>
+                        <div class="swiper-slide">
+                            <input class="form-control" name="b" maxlength="1" size="5" placeholder="x">
+                        </div>
+                        <div class="swiper-slide">
+                            <input class="form-control" name="c" maxlength="1" size="5" placeholder="x">
+                        </div>
+                        <div class="swiper-slide">
+                            <input class="form-control" name="d" maxlength="1" size="5" placeholder="x">
+                        </div>
+                       
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" placeholder="Your Message"></textarea>
-                </div>
+                
+            </div>
+            <div class="container text-center">
+            <p class="text-center text-secondary mb-4"><a href='change_details'>Resend Code<hr></a>
             </div>
 
+            <div class="container text-center">
+            <p class="text-center text-secondary mb-4"><a href='change_details'>Edit Details</a>
+            </div>
+            
             
             <div class="container text-center">
-                <a href="thank_you.html" class="btn btn-default mb-2 mx-auto rounded">Transfer</a>
+                <!-- <a href="thank_you.html" class="btn btn-default mb-2 mx-auto rounded"></a> -->
+                <input type="submit" value="Verify" class="btn btn-default mb-2 mx-auto rounded">
             </div>
+
+        </form>
         </div>
     </main>
 
@@ -135,3 +187,9 @@
 
 <!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/transfer.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
 </html>
+<?php
+}else{
+     header("Location: index.php");
+     exit();
+}
+ ?>

@@ -1,8 +1,31 @@
+<?php 
+session_start();
+$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+    $phone_number = $_SESSION['phone_number'];
+    $get_user = "SELECT * FROM users WHERE email = '$email'";
+    $query = mysqli_query($connection, $get_user);
+    $countit = mysqli_num_rows($query);
+    if($countit > 0){
+       
+        while($row = mysqli_fetch_array($query)){
+            //$row = mysqli_fetch_assoc($query);
+        
+            $fullname = $row['fullname'];
+          //exit();
+    } 
+}else {
+        $fullname = "";
+    }
+    
+
+ ?>
 <!doctype html>
 <html lang="en" class="h-100">
 
 
-<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/transfer.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/thank_you.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:39:27 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +55,7 @@
     <link href="css/style.css" rel="stylesheet" id="style">
 </head>
 
-<body class="body-scroll d-flex flex-column h-100 menu-overlay" >
+<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="thankyou">
     <!-- screen loader -->
     <div class="container-fluid h-100 loader-display">
         <div class="row h-100">
@@ -68,9 +91,7 @@
                     </button>
                 </div>
                 <div class="text-left col align-self-center">
-                    <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Transfer</h5>
-                    </a>
+
                 </div>
                 <div class="ml-auto col-auto">
                     <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
@@ -82,30 +103,20 @@
             </div>
         </header>
 
-        <div class="main-container">            
-            <div class="container mb-4">
-                <p class="text-center text-secondary mb-1">Enter Amount to transfer</p>
-                <div class="form-group mb-1">
-                    <input type="text" class="form-control large-gift-card" value="100.00" placeholder="00.00">
+        <!-- page content start -->
+        <div class="main-container h-100">
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 col-md-6 col-lg-4 align-self-center text-center my-3 mx-auto">
+                        <div class="icon icon-120 bg-success-light text-success rounded-circle mb-3">
+                            <i class="material-icons display-4">redeem</i>
+                        </div>
+                        <h2>Congratulation!</h2>
+                        <h6 class="text-secondary mb-3"><span style="color: green"><?php echo $fullname; ?> </span></h6>
+                        <p class="text-secondary">Thank you for buying products your order will be delivered soon and we will notify you soon via your registered email address or phone number.</p>
+                        <a href="index.php" class="btn btn-success">Come In</a>
+                    </div>
                 </div>
-                <p class="text-center text-secondary mb-4">Available: $ 1,050.00 </p>
-
-               
-                <div class="form-group">
-                    <select class="form-control">
-                        <option>Select Account</option>
-                        <option selected>AMX000xxxxx2546</option>
-                        <option>AMX000xxxxx2691</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <textarea class="form-control" placeholder="Your Message"></textarea>
-                </div>
-            </div>
-
-            
-            <div class="container text-center">
-                <a href="thank_you.html" class="btn btn-default mb-2 mx-auto rounded">Transfer</a>
             </div>
         </div>
     </main>
@@ -128,10 +139,16 @@
 
 
     <!-- page level custom script -->
-    <script src="js/app.js"></script>
-    
+    <!-- <script src="js/app.js"></script> -->
+
 </body>
 
 
-<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/transfer.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/thank_you.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:39:27 GMT -->
 </html>
+<?php
+}else{
+     header("Location: index.php");
+     exit();
+}
+ ?>
