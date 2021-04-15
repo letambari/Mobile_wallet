@@ -40,7 +40,7 @@
             <div class="card overflow-hidden">
                 <div class="card-body p-0 h-150">
                     <div class="background">
-                        <img src="img/image10.jpg" alt="" style="display: none;">
+                        <img src="_img/profile_image.png" alt="" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
         <div class="container-fluid top-70 text-center mb-4">
             <div class="avatar avatar-140 rounded-circle mx-auto shadow">
                 <div class="background">
-                    <img src="img/user1.png" alt="">
+                    <img src="_img/vector_profile.png" alt="">
                 </div>
             </div>
         </div>
@@ -79,110 +79,105 @@
                 </div>
             </div>
 
-            <div class="container mb-4">
-                <div class="card">
-                    <div class="card-header border-bottom">
-                        <h6 class="mb-0">Recent Transactions</h6>
-                    </div>
-                    <div class="card-body px-0 pt-0">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                               <?php echo $recent_transactions ; ?>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="container">
+           <!-- Business Details -->
+           <div class="container">
                 <div class="card">
                     <div class="card-header">
-                        <h6 class="mb-0">App Services</h6>
+                        <h6 class="mb-0">Business Details</h6>
                     </div>
                     <div class="card-body px-0 pt-0">
                         <div class="list-group list-group-flush border-top border-color">
-                            <a href="language.html" class="list-group-item list-group-item-action border-color">
+
+                        <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
                                         <div class="avatar avatar-50 bg-default-light text-default rounded">
-                                            <span class="material-icons">language</span>
+                                            <span class="material-icons">house</span>
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">Language</h6>
-                                        <p class="text-secondary">Choose preffered language</p>
+                                        <h6 class="mb-1">Business Details</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_business_name; ?></p>
                                     </div>
                                 </div>
                             </a>
-                            <a href="security_settings.html" class="list-group-item list-group-item-action border-color">
+
+                            <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
                                         <div class="avatar avatar-50 bg-default-light text-default rounded">
-                                            <span class="material-icons">lock_open</span>
+                                            <span class="material-icons">beach_access</span>
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">Security Settings</h6>
-                                        <p class="text-secondary">App lock, Password</p>
+                                        <h6 class="mb-1">Account Name</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_full_name; ?></p>
                                     </div>
                                 </div>
                             </a>
-                            <a href="notification_settings.html" class="list-group-item list-group-item-action border-color">
+
+                            <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
                                         <div class="avatar avatar-50 bg-default-light text-default rounded">
-                                            <span class="material-icons">notifications</span>
+                                            <span class="material-icons">beach_access</span>
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">Notification Settings</h6>
-                                        <p class="text-secondary">Customize notification receiving</p>
+                                        <h6 class="mb-1">Account Number</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_number; ?></p>
                                     </div>
                                 </div>
                             </a>
-                            <a href="my_cards.html" class="list-group-item list-group-item-action border-color">
+                           
+                            <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
                                         <div class="avatar avatar-50 bg-default-light text-default rounded">
-                                            <span class="material-icons">credit_card</span>
+                                            <span class="material-icons"><img src="https://seeklogo.com/images/N/nigeria-flag-logo-3B3BBC7E77-seeklogo.com.png" height="50px" width="50px"></span>
+                                            
+                                            
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">My Cards</h6>
-                                        <p class="text-secondary">Add, update, delete Credit Cards</p>
+                                        <h6 class="mb-1">Country</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_country; ?></p>
                                     </div>
                                 </div>
                             </a>
-                            <a href="my_address.html" class="list-group-item list-group-item-action border-color">
+                            <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
                                         <div class="avatar avatar-50 bg-default-light text-default rounded">
-                                            <span class="material-icons">location_city</span>
+                                            <span class="material-icons"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/GTBank_logo.svg/1200px-GTBank_logo.svg.png" height="50px" width="50px">devices</span>
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">My Address</h6>
-                                        <p class="text-secondary">Add, update, delete address</p>
+                                        <h6 class="mb-1">Bank</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_bank_name; ?></p>
                                     </div>
                                 </div>
                             </a>
-                            <a href="login.html" class="list-group-item list-group-item-action border-color">
+                            <a href="#" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
-                                        <div class="avatar avatar-50 bg-danger-light text-danger rounded">
-                                            <span class="material-icons">power_settings_new</span>
+                                        <div class="avatar avatar-50 bg-default-light text-default rounded">
+                                            <span class="material-icons"><img src="http://simpleicon.com/wp-content/uploads/Calendar-4.svg" height="50px" width="50px"></span>
+                                            
                                         </div>
                                     </div>
                                     <div class="col align-self-center pl-0">
-                                        <h6 class="mb-1">Logout</h6>
-                                        <p class="text-secondary">Logout from the application</p>
+                                        <h6 class="mb-1">Transaction Date</h6>
+                                        <p class="text-secondary"><?php echo $sub_account_created_at; ?></p>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
+
+            <!-- end of business details -->
         </div>
     </main>
 

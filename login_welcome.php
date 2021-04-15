@@ -1,12 +1,31 @@
-<?php include 'code.php'; 
-$split_value = 0.0042;
+<?php 
+session_start();
+$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+    $phone_number = $_SESSION['phone_number'];
+    $get_user = "SELECT * FROM users WHERE email = '$email'";
+    $query = mysqli_query($connection, $get_user);
+    $countit = mysqli_num_rows($query);
+    if($countit > 0){
+       
+        while($row = mysqli_fetch_array($query)){
+            //$row = mysqli_fetch_assoc($query);
+        
+            $fullname = $row['fullname'];
+          //exit();
+    } 
+}else {
+        $fullname = "";
+    }
+    
 
-?>
+ ?>
 <!doctype html>
 <html lang="en" class="h-100">
 
 
-<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/withdraw.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/thank_you.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:39:27 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,10 +53,9 @@ $split_value = 0.0042;
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" id="style">
-
 </head>
 
-<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="withdraw">
+<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="thankyou">
     <!-- screen loader -->
     <div class="container-fluid h-100 loader-display">
         <div class="row h-100">
@@ -73,9 +91,7 @@ $split_value = 0.0042;
                     </button>
                 </div>
                 <div class="text-left col align-self-center">
-                    <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Payment Option</h5>
-                    </a>
+
                 </div>
                 <div class="ml-auto col-auto">
                     <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
@@ -87,63 +103,51 @@ $split_value = 0.0042;
             </div>
         </header>
 
-    <form method="post" action="pos.php">
-        <div class="main-container">
-        <div class="form-group mb-1">
-                <img src="_img/payment_gateways.gif" alt="" class="mw-100 my-5">
+        <!-- page content start -->
+        <div class="main-container h-100">
+            <div class="container h-100">
+                <div class="row h-100">
+                    <div class="col-12 col-md-6 col-lg-4 align-self-center text-center my-3 mx-auto">
+                       
+                        <img src="_img/undraw_building_blocks_n0nc.png" alt="" class="mw-100 my-5">
+                        <h4>Welcome Back!</h4>
+                        <h6 class="text-secondary mb-3"><span style="color: green"><?php echo $fullname; ?> </span></h6>
+                        <p class="text-secondary">Thank you for buying products your order will be delivered soon and we will notify you soon via your registered email address or phone number.</p>
+                        <a href="index.php" class="btn btn-success">Come In</a>
+                    </div>
                 </div>
-            <div class="container mb-4">
-                <p class="text-center text-secondary mb-1">Enter Amount</p>
-                <div class="form-group mb-1">
-                    
-                </div>
-                <p class="text-center text-secondary mb-4">Click the button and enter the amount</p>                
             </div>
-
-            <div class="container text-center">
-                <script src="https://checkout.flutterwave.com/v3.js"></script>
-                <button type="button" onClick="makePayment()" class="btn btn-default mb-2 mx-auto rounded">Confirm</button>
-            </div>
-
-</form>
-<script>
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-7131468bd5538dd168a4cb06b5c7411a-X",
-      tx_ref: "1617741005",
-      amount: <?php echo json_encode($amount); ?>,
-      currency: "NGN",
-      payment_options: "card,ussd,barter,qr",
-      redirect_url: "http://localhost:8888/mobile_wallet/wallet.html",
-      customer: {
-        email: "innocentdestiny228@gmail.com",
-        phonenumber: "08102909304",
-        name: "Oscar Kaliente",
-      },
-      subaccounts: [
-        {
-          id: "RS_44D6D0DD4B8CE75362200888671CC960",
-          transaction_split_ratio:2,
-          transaction_charge_type: "percentage",
-          transaction_charge: <?php echo json_encode($split_value); ?>
-        }
-        
-      ],
-      callback: function (data) {
-        console.log(data);
-      },
-      customizations: {
-        title: "My store",
-        description: "testing settlements",
-        logo: "https://spheretechnologies.website/manager/assets/img/logo2.png",
-      },
-    });
-  }
-</script>
-            
-           
         </div>
-  
     </main>
 
-<?php include 'footer.php'; ?>
+
+    <!-- Required jquery and libraries -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- cookie js -->
+    <script src="js/jquery.cookie.js"></script>
+
+    <!-- Swiper slider  js-->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- Customized jquery file  -->
+    <script src="js/main.js"></script>
+    <script src="js/color-scheme-demo.js"></script>
+
+
+    <!-- page level custom script -->
+    <!-- <script src="js/app.js"></script> -->
+
+</body>
+
+
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/thank_you.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:39:27 GMT -->
+</html>
+<?php
+}else{
+     header("Location: index.php");
+     exit();
+}
+ ?>

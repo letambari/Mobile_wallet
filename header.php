@@ -71,13 +71,13 @@
             </div>
             <div class="col pl-3 text-left align-self-center">
                 <h6 class="mb-1"><?php echo $fullname; ?></h6>
-                <p class="small text-default-secondary">London, UK</p>
+                <p class="text-default-secondary"><span class="badge badge-light"><?php echo $acct_type; ?></span></p>
             </div>
         </div>
         <div class="menu-container">
             <div class="row mb-4">
                 <div class="col">
-                    <h4 class="mb-1 font-weight-normal">$ 1548.00</h4>
+                    <h4 class="mb-1 font-weight-normal">$1548.00</h4>
                     <p class="text-default-secondary">My Balance</p>
                 </div>
                 <div class="col-auto">
@@ -85,9 +85,9 @@
                 </div>
             </div>
 
-            <ul class="nav nav-pills flex-column ">
+            <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index-2.html">
+                    <a class="nav-link active" href="index.php">
                         <div>
                             <span class="material-icons icon">account_balance</span>
                             Home
@@ -123,6 +123,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="transactions.php">
+                        <div>
+                            <span class="material-icons icon">money</span>
+                            Tranactions
+                        </div>
+                        <span class="arrow material-icons">chevron_right</span>
+                    </a>
+                </li>
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="my_orders.html">
                         <div>
                             <span class="material-icons icon">shopping_bag</span>
@@ -130,7 +139,7 @@
                         </div>
                         <span class="arrow material-icons">chevron_right</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="settings.php">
                         <div>
@@ -150,13 +159,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="agent_reg.php">
-                        <div>
-                            <span class="material-icons icon">widgets</span>
-                            Become An Agent
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
+                    <?php echo $brandstate; ?>
                 </li>
             </ul>
             <div class="text-center">

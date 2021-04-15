@@ -1,43 +1,13 @@
 <?php 
 
 session_start();
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
     $email = $_SESSION['user_email'];
     $phone_number = $_SESSION['phone_number'];
-    $_SESSION['private_secret_key'] = '1fabcdefghijk4276388ad3214c87@@**3428dbef42243fkbjdbfhjbh@#$%^lmnopuvwxwz';
-
-    function encrypt($message, $encryption_key){
-        $key = hex2bin($encryption_key);
-        $nonceSize = openssl_cipher_iv_length('aes-256-ctr');
-        $nonce = openssl_random_pseudo_bytes($nonceSize);
-        $ciphertext = openssl_encrypt(
-          $message, 
-          'aes-256-ctr', 
-          $key,
-          OPENSSL_RAW_DATA,
-          $nonce
-        );
-        return base64_encode($nonce.$ciphertext);
-      }
-      function decrypt($message,$encryption_key){
-        $key = hex2bin($encryption_key);
-        $message = base64_decode($message);
-        $nonceSize = openssl_cipher_iv_length('aes-256-ctr');
-        $nonce = mb_substr($message, 0, $nonceSize, '8bit');
-        $ciphertext = mb_substr($message, $nonceSize, null, '8bit');
-        $plaintext= openssl_decrypt(
-          $ciphertext, 
-          'aes-256-ctr', 
-          $key,
-          OPENSSL_RAW_DATA,
-          $nonce
-        );
-        return $plaintext;
-      }
     
     // getting the user details
-    $get_user = "SELECT * FROM users WHERE email = '$email'";
+    $get_user = "SELECT * FROM users WHERE email = '$email' AND phone_number = '$phone_number'";
     $query = mysqli_query($connection, $get_user);
     $countit = mysqli_num_rows($query);
 
@@ -49,11 +19,187 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
             $_SESSION['fullname'] = $fullname = $row['fullname'];
             $_SESSION['userID'] = $row['userID'];
             $account_password = $row['password'];
+            $acct_type = $row['acct_type'];
            
           //exit();
     } 
 
-            // getting the transactions of this user
+            //displaying the user account type
+            if($acct_type == $the_acct_type1){
+              
+              $acct_type = 'User';
+              $brandstate = '<a class="nav-link" href="agent_reg.php">
+              <div>
+                  <span class="material-icons icon">widgets</span>
+                  Become An Agent
+              </div>
+              <span class="arrow material-icons">chevron_right</span>
+          </a>';
+            } elseif($acct_type == $the_acct_type2) {
+              //getting the business name, if the user is a brand
+              $userID = $_SESSION['userID'];
+              $get_user = "SELECT * FROM sub_account WHERE userID = '$userID'";
+              $query = mysqli_query($connection, $get_user);
+              while($row = mysqli_fetch_array($query)){
+                $business_name = $row['business_name'];
+              }
+              $acct_type = $business_name;
+              $brandstate = '
+              <li class="nav-item">
+              <a class="nav-link " href="dashboard.php">
+              <div>
+                  <span class="material-icons icon">widgets</span>
+                  <span class="badge badge-pill badge-success">Your Dashboard</span>
+              </div>
+              <span class="arrow material-icons">chevron_right</span>
+              </a> 
+              ';
+
+              // geting the user business (sub-account details)
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                      CURLOPT_URL => "https://api.flutterwave.com/v3/subaccounts/{$userID}",
+                      CURLOPT_RETURNTRANSFER => true,
+                      CURLOPT_ENCODING => "",
+                      CURLOPT_MAXREDIRS => 10,
+                      CURLOPT_TIMEOUT => 0,
+                      CURLOPT_FOLLOWLOCATION => true,
+                      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                      CURLOPT_CUSTOMREQUEST => "GET",
+                      CURLOPT_HTTPHEADER => array(
+                        "Authorization: Bearer {$sphere}"
+                      ),
+                    ));
+
+                    $response = curl_exec($curl);
+
+                    curl_close($curl);
+                    $res = json_decode($response);
+                    if($res->status == 'success')
+                    { 
+                      $sub_account_id = $res->data->id;
+                      $sub_account_number = $res->data->account_number;
+                      $sub_account_bank = $res->data->account_bank;
+                      $sub_account_business_name= $res->data->business_name;
+                      $sub_account_full_name = $res->data->full_name;
+                      $sub_account_created_at = $res->data->created_at;
+                      $sub_account_account_id = $res->data->account_id;
+                      $sub_split_ratio = $res->data->split_ratio;
+                      $sub_split_type = $res->data->split_type;
+                      $sub_split_value = $res->data->split_value;
+                      $sub_subaccount_id = $res->data->subaccount_id;
+                      $sub_account_bank_name = $res->data->bank_name;
+                      $sub_account_country = $res->data->country;
+                      $sub_account_country = json_decode($sub_account_country);
+
+                    }else{
+                      echo "no user found";
+                    }
+                    
+
+                    // get all the settlements
+                    
+
+                      $curl = curl_init();
+
+                      curl_setopt_array($curl, array(
+                        CURLOPT_URL => "{$app_url}/settlements?subaccount_id={$sub_subaccount_id}",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "GET",
+                        CURLOPT_HTTPHEADER => array(
+                          "Authorization: Bearer {$sphere}"
+                        ),
+                      ));
+
+                      $response = curl_exec($curl);
+
+                      curl_close($curl);
+                      $res = json_decode($response,TRUE);
+                     
+                    $array = json_decode($response, true);
+                    $fl = $array['data'][0]; //['left'];
+                    $fl['id'];
+                    
+                    
+                   foreach($fl as $x => $x_value) {
+                  //  echo "Key=" . $x . ", Value=" . $x_value;
+                    //echo "<br>";
+                  }
+                 
+                      //exit();
+                      
+                    if($res->status == 'success')
+                    { $res->data;
+
+                      $sub_settlement_id = $res->data->id;
+                      $sub_settlement_account_id = $res->data->account_id;
+                      $sub_settlement_merchant_name = $res->data->merchant_name;
+                      $sub_settlement_merchant_email = $res->data->merchant_email;
+                      $sub_settlement_settlement_account = $res->data->settlement_account;
+                      $sub_settlement_transaction_date = $res->data->transaction_date;
+                      $sub_settlement_due_date = $res->data->due_date;
+                      $sub_settlement_processed_date = $res->data->processed_date;
+                      $sub_settlement_status = $res->data->status;
+                      $sub_settlement_is_local = $res->data->is_local;
+                      $sub_settlement_currency = $res->data->currency;
+                      $sub_settlement_gross_amount = $res->data->gross_amount;
+                      $sub_settlement_app_fee = $res->data->app_fee;
+
+                      $sub_settlement_merchant_fee = $res->data->merchant_fee;
+                      $sub_settlement_chargeback = $res->data->chargeback;
+                      $sub_settlement_refund = $res->data->refund;
+                      $sub_settlement_stampduty_charge = $res->data->stampduty_charge;
+                      $sub_settlement_net_amount = $res->data->net_amount;
+                      $sub_settlement_transaction_count = $res->data->transaction_count;
+                      $sub_settlement_processor_ref = $res->data->processor_ref;
+                      $sub_settlement_disburse_ref = $res->data->disburse_ref;
+                      $sub_settlement_disburse_message = $res->data->disburse_message;
+                      $sub_settlement_channel = $res->data->channel;
+                      $sub_settlement_destination = $res->data->destination;
+                      $sub_settlement_flag_message = $res->data->flag_message;
+                      $sub_settlement_created_at = $res->data->created_at;
+                      
+                      //echo $sub_settlement_id;
+                      //exit();
+                      $recent_settlement .= ' <a href="transaction_details.php?tx_ref='.$sub_settlement_id.'">
+                      <li class="list-group-item">
+                      <div class="row align-items-center">
+                      <div class="col-auto pr-0">
+                          <div class="avatar avatar-40 rounded">
+                              <div class="background">
+                                 <!-- <img src="img/user2.png" alt=""> -->
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col align-self-center pr-0">
+                          <h6 class="font-weight-normal mb-1">'.$sub_settlement_merchant_name.'</h6>
+                          <p class="small text-secondary">'.$sub_settlement_created_at.'</p>
+                      </div>
+                      <div class="col-auto">
+                          <h6 class="text-success">'.$sub_settlement_currency.''.$sub_settlement_net_amount.''.$sub_settlement_flag_message.'</h6>
+                      </div>
+                  </div>
+                  </li>
+                  </a>';
+
+                    }else{
+                     $recent_settlement = "no user found";
+                    }
+
+                     // exit();
+
+            }else{
+              $acct_type = 'Admin';
+            }
+
+            // getting the sum transactions of this user
             $get_transactions = "SELECT SUM(charged_amount) AS charged_amount FROM transactions WHERE email = '$email'";
             $query_tranactions  = mysqli_query($connection, $get_transactions);
             $count_transaction = mysqli_num_rows($query_tranactions);
@@ -61,7 +207,6 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
             while($row = mysqli_fetch_array($query_tranactions)){
                 //$row = mysqli_fetch_assoc($query);
                 $charged_amount = $row['charged_amount'];
-                $sumed_currency = $row['currency'];
 
                // echo $sumed_currency;
                 
@@ -94,6 +239,7 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
             </div>';
             }
 
+            // getting all the transactions 
             $get_transactions = "SELECT * FROM transactions WHERE email = '$email'";
             $query_tranactions  = mysqli_query($connection, $get_transactions);
             $count_transaction = mysqli_num_rows($query_tranactions);
@@ -102,14 +248,27 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
             
                 while($row = mysqli_fetch_array($query_tranactions)){
                     //$row = mysqli_fetch_assoc($query);
+                    $trans_id = $row['trans_id'];
+                    $tx_ref = $row['tx_ref'];
                     $charged_amount = $row['charged_amount'];
                     $sumed_currency = $row['currency'];
                     $trans_created_at = $row['trans_created_at'];
+                    $amount = $row['amount'];
                     $trans_created_at = DATE($trans_created_at);
+                    $trans_created_at = substr($trans_created_at, 0, 10);
                     $narration = $row['narration'];
+                    $is_favour = $row['is_favour'];
+
+                    if($is_favour == 'Received'){
+                      $is_favour = 'success';
+                    } else {
+                      $is_favour = 'danger';
+                    }
                   //exit();
 
-                  $recent_transactions .= ' <div class="row align-items-center">
+                  $recent_transactions .= ' <a href="transaction_details.php?tx_ref='.$trans_id.'">
+                  <li class="list-group-item">
+                  <div class="row align-items-center">
                   <div class="col-auto pr-0">
                       <div class="avatar avatar-40 rounded">
                           <div class="background">
@@ -122,9 +281,11 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
                       <p class="small text-secondary">'.$trans_created_at.'</p>
                   </div>
                   <div class="col-auto">
-                      <h6 class="text-success">'.$sumed_currency.''.$charged_amount.'</h6>
+                      <h6 class="text-'.$is_favour.'">'.$sumed_currency.''.$charged_amount.'</h6>
                   </div>
-              </div>';
+              </div>
+              </li>
+              </a>';
             } 
             
             } else {
@@ -146,7 +307,7 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
                 $card_year = substr($card_year, 2, 4);
                 $card_type = decrypt($row['card_type'],$_SESSION['private_secret_key']);
                 $cvv1 = decrypt($row['cvv'],$_SESSION['private_secret_key']);
-                $cvv = substr($row['cvv'], 0, 1);
+                $cvv = substr($cvv1, 0, 1);
                 $issuing_country = decrypt($row['issuing_country'],$_SESSION['private_secret_key']);
                 $bin = decrypt($row['bin'],$_SESSION['private_secret_key']);
                 $issuer_info = decrypt($row['issuer_info'],$_SESSION['private_secret_key']);
@@ -265,6 +426,88 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
 }else {
         $fullname = "";
     }
+
+    //getting a single transaction details from flutterwave
+
+    if(isset($_GET['tx_ref'])){
+     // echo 'found';
+      $tx_ref = $_GET['tx_ref'];
+      $get_transactions = "SELECT * FROM transactions WHERE trans_id = '$tx_ref'";
+      $query_tranactions  = mysqli_query($connection, $get_transactions);
+      $count_transaction = mysqli_num_rows($query_tranactions);
+
+      if($count_transaction > 1){
+      
+          while($row = mysqli_fetch_array($query_tranactions)){
+              //$row = mysqli_fetch_assoc($query);
+              $trans_id = $row['trans_id'];
+              $tx_ref = $row['tx_ref'];
+              $charged_amount = $row['charged_amount'];
+              $sumed_currency = $row['currency'];
+              $trans_created_at = $row['trans_created_at'];
+              $amount = $row['amount'];
+              //$trans_created_at = DATE($trans_created_at);
+              $month1 = explode ("-", $trans_created_at); 
+              $trans_this_month = $month1[1];
+              //$trans_this_month = substr($trans_created_at, 6, 7);
+              $narration = $row['narration'];
+              $is_favour = $row['is_favour'];
+              $first_6digits = $row['first_6digits'];	
+              $last_4digits = $row['last_4digits'];
+              $issuer = $row['issuer'];
+              $payment_type = $row['payment_type'];
+              $type = $row['type'];
+
+              $the_charged_amount = $charged_amount;
+            //exit();
+
+
+            $recent_transactions .= ' <a href="transaction_details.php?tx_ref='.$tx_ref.'">
+            <li class="list-group-item">
+            <div class="row align-items-center">
+            <div class="col-auto pr-0">
+                <div class="avatar avatar-40 rounded">
+                    <div class="background">
+                        <img src="img/user2.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col align-self-center pr-0">
+                <h6 class="font-weight-normal mb-1">'.$narration.'</h6>
+                <p class="small text-secondary">'.$trans_created_at.'</p>
+            </div>
+            <div class="col-auto">
+                <h6 class="text-'.$is_favour.'">'.$sumed_currency.''.$charged_amount.'</h6>
+            </div>
+        </div>
+        </li>
+        </a>';
+
+         // getting the sum transactions of this user
+         $get_transactions = "SELECT SUM(charged_amount) AS charged_amount FROM transactions WHERE email = '$email'";
+         $query_tranactions  = mysqli_query($connection, $get_transactions);
+         $count_transaction = mysqli_num_rows($query_tranactions);
+
+         while($row = mysqli_fetch_array($query_tranactions)){
+             //$row = mysqli_fetch_assoc($query);
+             $charged_amount = $row['charged_amount'];
+             //$sumed_currency = $row['currency'];
+
+            // echo $sumed_currency;
+             
+         }
+        
+      } 
+      
+      } else {
+          //echo "no";
+      }
+    }else {
+      //echo 'no transaction found';
+    }
+    //exit();
+
+    // feching sub account detaisl
     
 
  ?>

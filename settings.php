@@ -31,7 +31,7 @@
             <div class="card overflow-hidden">
                 <div class="card-body p-0 h-150">
                     <div class="background">
-                        <img src="img/image10.jpg" alt="" style="display: none;">
+                        <img src="_img/settings.gif" alt="" style="display: none;">
                     </div>
                 </div>
             </div>
@@ -39,14 +39,14 @@
         <div class="container-fluid top-70 text-center mb-4">
             <div class="avatar avatar-140 rounded-circle mx-auto shadow">
                 <div class="background">
-                    <img src="img/user1.png" alt="">
+                    <!-- <img src="img/user1.png" alt=""> -->
                 </div>
             </div>
         </div>
-        <div class="container mb-4 text-center text-white">
+        <!-- <div class="container mb-4 text-center text-white">
             <h6 class="mb-1"><?php echo $fullname; ?></h6>
-            <!-- <p>London, UK</p> -->
-        </div>
+             <p>London, UK</p> 
+        </div> -->
         <div class="main-container">
             <div class="container">
                 <div class="card">
@@ -128,4 +128,27 @@
     </main>
 
 
-    <?php include 'footer.php'; ?>
+    <!-- Required jquery and libraries -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- cookie js -->
+    <script src="js/jquery.cookie.js"></script>
+
+    <!-- Swiper slider  js-->
+    <script src="vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- Customized jquery file  -->
+    <script src="js/main.js"></script>
+    <script src="js/color-scheme-demo.js"></script>
+
+
+    <!-- page level custom script -->
+    <script src="js/app.js"></script>
+    
+</body>
+
+
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/setting.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:37:10 GMT -->
+</html>
