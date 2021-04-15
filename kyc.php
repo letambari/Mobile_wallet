@@ -15,7 +15,7 @@ $split_type = htmlspecialchars($_POST["split_type"]);
 $business_address = htmlspecialchars($_POST["business_address"]);
 
 
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 
 $account_bank = $connection->real_escape_string($account_bank);  		
 $account_number = $connection->real_escape_string($account_number);  				

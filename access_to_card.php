@@ -4,7 +4,7 @@ $email = $_SESSION['user_email'];
 $password1= htmlspecialchars($_POST["password"]);
 
 
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 
 $password = sha1($connection->real_escape_string($password1));
 

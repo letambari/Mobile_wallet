@@ -4,15 +4,11 @@ if(isset($_GET['ref'])){
 $card_id= htmlspecialchars($_GET["ref"]);
 
 $customer_id = $_SESSION['user_email'];
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 
-$servername = "localhost:8889";
-$username = "root";
-$password = "root";
-$dbname = "money_talks";
 
 try {
-$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  include 'connect.php';
 // set the PDO error mode to exception
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //$card_id = $name_on_card.'_'.$card_number_6;

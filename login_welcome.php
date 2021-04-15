@@ -1,6 +1,6 @@
 <?php 
 session_start();
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
     $email = $_SESSION['user_email'];
     $phone_number = $_SESSION['phone_number'];

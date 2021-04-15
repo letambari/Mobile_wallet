@@ -106,13 +106,10 @@
 
                         // INSERTING INTO TRANSACTIONS TABLE USING PDO
 
-                        $servername = "localhost:8889";
-                        $username = "root";
-                        $password = "root";
-                        $dbname = "money_talks";
+                   
 
                         try {
-                        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                            include 'connect.php';
                         // set the PDO error mode to exception
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                         $sql = "INSERT INTO transactions (trans_id, tx_ref, flw_ref, device_fingerprint, amount, currency, charged_amount, app_fee, merchant_fee, processor_response, auth_model, ip, narration, status, payment_type, trans_created_at, account_id, amount_settled, first_6digits, last_4digits, issuer, country, type, token, expiry, customer_id, name, phone_number, email, cust_created_at, completed, confirmed_person, completed_date)

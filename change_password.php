@@ -7,7 +7,7 @@ $phone_number = $_SESSION['phone_number'];
 $password1 = htmlspecialchars($_POST["password"]);
 $confirm_password2 = htmlspecialchars($_POST["confirm_password"]);
 
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");			
+include 'connect.php';			
 $password = sha1($connection->real_escape_string($password1));  
 //$confirm_password = sha1($connection->real_escape_string($confirm_password));
 $confirm_password = sha1($connection->real_escape_string($confirm_password2));

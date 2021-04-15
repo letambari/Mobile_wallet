@@ -5,7 +5,7 @@ $b = htmlspecialchars($_POST["b"]);
 $c = htmlspecialchars($_POST["c"]);
 $d = htmlspecialchars($_POST["d"]);
 
-$connection = new mysqli("localhost:8889", "root", "root", "money_talks");
+include 'connect.php';
 $a = $connection->real_escape_string($a);  		
 $b = $connection->real_escape_string($b);  				
 $c = $connection->real_escape_string($c); 
