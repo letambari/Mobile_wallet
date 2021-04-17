@@ -1,12 +1,14 @@
 <?php include 'code.php'; 
-$split_value = 0.0042;
-$amount = '';
+
+ $_SESSION['settlementID'];
+
+//exit();
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
 
 
-<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/withdraw.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
+<!-- Mirrored from maxartkiller.com/website/finwallapp/HTML/transactions.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Apr 2021 22:38:43 GMT -->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,10 +36,11 @@ $amount = '';
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" id="style">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
 
 </head>
 
-<body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="withdraw">
+<body class="body-scroll d-flex flex-column h-100 menu-overlay">
     <!-- screen loader -->
     <div class="container-fluid h-100 loader-display">
         <div class="row h-100">
@@ -60,7 +63,7 @@ $amount = '';
     </div>
 
 
-
+    
 
     <!-- Begin page content -->
     <main class="flex-shrink-0 main">
@@ -72,9 +75,12 @@ $amount = '';
                         <span class="material-icons">keyboard_arrow_left</span>
                     </button>
                 </div>
+                <!-- <div class="form-group mb-1">
+                <img src="https://i.pinimg.com/originals/f8/c4/22/f8c422a0a0e6793b3f9113d419c5143a.gif" alt="" class="mw-100 my-5">
+                </div> -->
                 <div class="text-left col align-self-center">
                     <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Payment Option</h5>
+                        <h5 class="mb-0">Transactions</h5>
                     </a>
                 </div>
                 <div class="ml-auto col-auto">
@@ -87,67 +93,48 @@ $amount = '';
             </div>
         </header>
 
-    <form method="post" action="pos.php">
+        <!-- page content start -->
+
         <div class="main-container">
-        <div class="form-group mb-1">
-                <img src="_img/payment_gateways.gif" alt="" class="mw-100 my-5">
-                </div>
-            <div class="container mb-4">
-                <p class="text-center text-secondary mb-1">Enter Amount</p>
+            <div class="container">
+                <div class="card">
                 <div class="form-group mb-1">
-                    
+                <img src="_img/transaction.jpeg" alt="" class="mw-100 my-5">
                 </div>
-                <p class="text-center text-secondary mb-4">Click the button and enter the amount</p>                
+                    <div class="card-body px-0">
+                    <button class="btn btn-info">View Settlements</button>  
+                        <ul class="list-group list-group-flush">
+                           
+                            
+                                <?php // echo $single_settlement; ?>
+               
+                <div id="table" style="display:none;">  
+                     <div id="tr">   
+                          <h4>Settlement</h4>  
+                    </div>  
+                </div>  
+                                      
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-            <div class="container text-center">
-                <script src="https://checkout.flutterwave.com/v3.js"></script>
-                <button type="button" onClick="makePayment()" class="btn btn-default mb-2 mx-auto rounded">Confirm</button>
-            </div>
-
-</form>
-<script>
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: "FLWPUBK_TEST-7131468bd5538dd168a4cb06b5c7411a-X",
-      tx_ref: "1617741005",
-      amount: <?php echo json_encode($amount); ?>,
-      currency: "NGN",
-      payment_options: "card,ussd,barter,qr",
-      redirect_url: "https://localhost:8888/mobile_wallet/pos.php",
-      customer: {
-        email: "innocentdestiny228@gmail.com",
-        phonenumber: "08102909304",
-        name: "Oscar Kaliente",
-      },
-      subaccounts: [
-        {
-          id: "RS_44D6D0DD4B8CE75362200888671CC960",
-          transaction_split_ratio:2,
-          transaction_charge_type: "percentage",
-          transaction_charge: <?php echo json_encode($split_value); ?>
-        }
-        
-      ],
-      callback: function (data) {
-        console.log(data);
-      },
-      customizations: {
-        title: "My store",
-        description: "testing settlements",
-        logo: "https://spheretechnologies.website/manager/assets/img/logo2.png",
-      },
-    });
-  }
-</script>
-            
-           
         </div>
-  
     </main>
 
-<!-- Required jquery and libraries -->
-<script src="js/jquery-3.3.1.min.js"></script>
+    <script>  
+ $(document).ready(function(){  
+      $("button").click(function(){  
+           $("#table").show();  
+           $.getJSON("load_single_settlement.php", function(data){  
+                $.each(data, function(key, value){  
+                     $("#table").append("<a><li class='list-group-item'><div class='row align-items-center'><div class='col-auto pr-0'><div class='avatar avatar-40 rounded'><div class='background'> <img src='https://cdn.dribbble.com/users/1803982/screenshots/5655223/9_2x.png' height='50px' width='50px' alt=''></div></div></div><div class='col align-self-center pr-0'><h6 class='font-weight-normal mb-1'><span style='color: green'> "+value.currency+""+value.charged_amount+" </span>-  <span style='color: orange'>"+value.currency+""+value.settlement_amount+"</span></h6><p class='small text-secondary'>Trans Date "+value.transaction_date+"</p><h6><p class='small text-secondary'>Payment Mode "+value.payment_entity+"</p></h6><p><span class='badge badge-pill badge-success'>"+value.status+" Txn_ID"+value.id+"</span></p></div></div></li></a></a>");  
+                });  
+           });  
+      });  
+ });  
+ </script> 
+    <!-- Required jquery and libraries -->
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 

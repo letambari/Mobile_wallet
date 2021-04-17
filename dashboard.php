@@ -31,6 +31,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" id="style">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
 </head>
 
 <body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="analytics">
@@ -82,83 +84,7 @@
                 </div>
             </div>
 
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.php">
-                        <div>
-                            <span class="material-icons icon">account_balance</span>
-                            Home
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="analytics.html">
-                        <div>
-                            <span class="material-icons icon">insert_chart</span>
-                            Analytics
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="refer_friends.html">
-                        <div>
-                            <span class="material-icons icon">perm_contact_calendar</span>
-                            Refer Friends
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="cards.php">
-                        <div>
-                            <span class="material-icons icon">card_giftcard</span>
-                            Virtual Cards
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="transactions.php">
-                        <div>
-                            <span class="material-icons icon">money</span>
-                            Tranactions
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="my_orders.html">
-                        <div>
-                            <span class="material-icons icon">shopping_bag</span>
-                            My Orders
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="settings.php">
-                        <div>
-                            <span class="material-icons icon">settings</span>
-                            Settings
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pages.html">
-                        <div>
-                            <span class="material-icons icon">layers</span>
-                            Pages
-                        </div>
-                        <span class="arrow material-icons">chevron_right</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <?php echo $brandstate; ?>
-                </li>
-            </ul>
+            <?php include 'nav.php'; ?>
             <div class="text-center">
                 <a href="logout.php" class="btn btn-outline-danger text-white rounded my-3 mx-auto">Sign out</a>
             </div>
@@ -202,7 +128,7 @@
 
         <!-- page content start -->
         <div class="container mt-3 mb-4 text-center">
-            <h2 class="text-white"><?php echo $sumed_currency; ?> <?php echo number_format($charged_amount); ?></h2>
+            <h2 class="text-white"><?php echo $sumed_currency; ?> <?php echo number_format($sub_settlement_gross_amount); ?></h2>
             <p class="text-white mb-4">Total Transactions</p>
         </div>
 
@@ -393,13 +319,23 @@
             <div class="container">
                 <div class="row mb-3">
                     <div class="col">
-                        <h6 class="subtitle mb-0">Settlements</h6>
+                        <!-- <h6 class="subtitle mb-0">Settlements</h6> -->
                     </div>
                     <div class="col-auto">
                         <!-- <a href="allpayment.html" class="float-right small">View All</a> -->
                 </div>
                 </div>
-                <?php echo $recent_settlement; ?>
+                
+                <?php // echo $recent_settlement; ?>
+                <div>  
+                
+                <button class="btn btn-info">View Settlements</button>  
+                <div id="table" style="display:none;">  
+                     <div id="tr">   
+                          <h4>Settlement</h4>  
+                    </div>  
+                </div>  
+           </div>  
                 <!-- <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="card mb-4">
@@ -448,40 +384,7 @@
     </main>
 
     <!-- footer-->
-    <div class="footer">
-        <div class="row no-gutters justify-content-center">
-            <div class="col-auto">
-                <a href="index-2.html" class="">
-                    <i class="material-icons">home</i>
-                    <p>Home</p>
-                </a>
-            </div>
-            <div class="col-auto">
-                <a href="analytics.html" class="active">
-                    <i class="material-icons">insert_chart_outline</i>
-                    <p>Analytics</p>
-                </a>
-            </div>
-            <div class="col-auto">
-                <a href="wallet.html" class="">
-                    <i class="material-icons">account_balance_wallet</i>
-                    <p>Wallet</p>
-                </a>
-            </div>
-            <div class="col-auto">
-                <a href="shop.html" class="">
-                    <i class="material-icons">shopping_bag</i>
-                    <p>Shop</p>
-                </a>
-            </div>
-            <div class="col-auto">
-                <a href="profile.html" class="">
-                    <i class="material-icons">account_circle</i>
-                    <p>Profile</p>
-                </a>
-            </div>
-        </div>
-    </div>
+    <?php include 'footer_nav.php';?>
 
 
     <!-- color settings style switcher -->
@@ -564,7 +467,20 @@
 
 
 
-
+    <!-- getting the settlement details -->
+   
+    <script>  
+ $(document).ready(function(){  
+      $("button").click(function(){  
+           $("#table").show();  
+           $.getJSON("load_settlement.php", function(data){  
+                $.each(data, function(key, value){  
+                     $("#table").append("<a href='single_settlement.php?settlementID="+value.id+"'><li class='list-group-item'><div class='row align-items-center'><div class='col-auto pr-0'><div class='avatar avatar-40 rounded'><div class='background'> <img src='https://cdn.dribbble.com/users/1803982/screenshots/5655223/9_2x.png' height='50px' width='50px' alt=''></div></div></div><div class='col align-self-center pr-0'><h6 class='font-weight-normal mb-1'> "+value.currency+""+value.gross_amount+"</h6><p class='small text-secondary'>Trans Date "+value.transaction_date+"</p><h6><p class='small text-secondary'>Due Date "+value.due_date+"</p></h6><p><span class='badge badge-pill badge-success'>"+value.status+"</span></p></div></div></li></a></a>");  
+                });  
+           });  
+      });  
+ });  
+ </script> 
     <!-- Required jquery and libraries -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>

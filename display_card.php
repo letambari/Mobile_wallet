@@ -1,36 +1,4 @@
-<?php include 'code.php'; 
-
-if(isset($_GET['card_id'])){
-    $card_id = $_GET['card_id'];
-
-    $getallcards = "SELECT * FROM added_cards WHERE customer_id = '$email' AND card_id = '$card_id'";
-            $query_cards = mysqli_query($connection, $getallcards);
-            while($row = mysqli_fetch_array($query_cards)){
-                
-                $id = $row['id'];
-                $card_ids = $row['card_id'];
-                $customer_id = $row['customer_id'];
-                $card_number = decrypt($row['card_number'],$_SESSION['private_secret_key']);
-                $name_on_card = decrypt($row['name_on_card'],$_SESSION['private_secret_key']);
-                $card_month = decrypt($row['card_month'],$_SESSION['private_secret_key']);
-                $card_year = decrypt($row['card_year'],$_SESSION['private_secret_key']);
-                $card_year = substr($card_year, 2, 4);
-                $card_type = decrypt($row['card_type'],$_SESSION['private_secret_key']);
-                $cvv1 = decrypt($row['cvv'],$_SESSION['private_secret_key']);
-                $cvv = substr($row['cvv'], 0, 1);
-                $issuing_country = decrypt($row['issuing_country'],$_SESSION['private_secret_key']);
-                $bin = decrypt($row['bin'],$_SESSION['private_secret_key']);
-                $issuer_info = decrypt($row['issuer_info'],$_SESSION['private_secret_key']);
-                $added_date = decrypt($row['added_date'],$_SESSION['private_secret_key']);
-
-              $card_number_first_4 = substr($card_number, 0, 4);
-              $card_number_last_4 = substr($card_number, 12, 16);
-              //$card_number = $card_number_first_4.' **** **** *'.$card_number_last_4;
-
-}
-$card_numbers = $card_numbers;
-}
-
+<?php include 'code.php';
 ?>
 
 <!doctype html>

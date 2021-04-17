@@ -1,0 +1,44 @@
+{
+    "id":137617,
+    "account_id":735235,
+    "merchant_name":"Sphere Technologies",
+    "merchant_email":"ravesb_97e03009efc2bdf786d3_innocentdestiny4510@gmail.com",
+    "settlement_account":"044",
+    "bank_code":"044",
+    "transaction_date":"2021-04-15T01:00:00.000Z",
+    "due_date":"2021-04-16T00:00:00.000Z",
+    "processed_date":null,
+    "status":"flagged",
+    "is_local":true,
+    "currency":"NGN",
+    "gross_amount":423.6,
+    "app_fee":326.9,
+    "merchant_fee":0,
+    "chargeback":0,
+    "refund":0,
+    "stampduty_charge":0,
+    "net_amount":96.7,
+    "transaction_count":5,
+    "processor_ref":null,
+    "disburse_ref":null,
+    "disburse_message":null,
+    "channel":"web",
+    "destination":"account",
+    "fx_data":null,
+    "flag_message":"Did not pass compliance check",
+    "meta":[
+       1822111,
+       1823157,
+       1822120,
+       1822111,
+       1823129
+    ],
+    "refund_meta":[
+       
+    ],
+    "chargeback_meta":[
+       
+    ],
+    "source_bankcode":null,
+    "created_at":"2021-04-16T01:05:04.000Z"
+ }
