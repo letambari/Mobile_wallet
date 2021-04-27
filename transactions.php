@@ -77,7 +77,7 @@
                     </a>
                 </div>
                 <div class="ml-auto col-auto">
-                    <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
+                    <a href="profile.php" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
                         <figure class="m-0 background">
                             <img src="img/user1.png" alt="">
                         </figure>

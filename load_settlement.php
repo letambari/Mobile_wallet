@@ -1,9 +1,10 @@
 <?php
+include 'code.php';
 
 $curl = curl_init();
 
                       curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://api.flutterwave.com/v3/settlements",
+                        CURLOPT_URL => "https://api.flutterwave.com/v3/settlements?subaccount_id={$sub_subaccount_id}",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => "",
                         CURLOPT_MAXREDIRS => 10,
@@ -27,9 +28,8 @@ $curl = curl_init();
                        echo $get;
                     //   echo"</pre>";
 
-                   //   $res = json_decode($get);
               
-               //echo $id = $res->data->id;
+              // echo $id = $res->data->id;
           
 
 

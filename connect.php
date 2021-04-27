@@ -3,6 +3,9 @@
   $connection = new mysqli("localhost:8889", "root", "root", "money_talks"); 
   $sphere = 'FLWSECK_TEST-1534480118f4484ed5c01b9412262e6c-X';
   $app_url = 'https://api.flutterwave.com/v3';
+  $app_title = 'Finwallapp - Mobile App';
+  $app_name = 'Finwallapp';
+  $app_spinner = 'Finwallapp';
   $servername = "localhost:8889";
   $username = "root";
   $password = "root";

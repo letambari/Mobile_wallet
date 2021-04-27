@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>Finwallapp - Mobile HTML template</title>
+    <title><?php echo $app_title; ?></title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -43,8 +43,8 @@
                     <div class="icon icon-100 mb-4 rounded-circle">
                         <img src="img/favicon144.png" alt="" class="w-100">
                     </div>
-                    <h4 class="text-default">Finwallapp</h4>
-                    <p class="text-secondary">Mobile HTML template</p>
+                    <h4 class="text-default"><?php $app_name; ?></h4>
+                    <p class="text-secondary"><?php echo $app_spinner; ?></p>
                     <div class="loader-ellipsis">
                         <div></div>
                         <div></div>
@@ -77,8 +77,7 @@
         <div class="menu-container">
             <div class="row mb-4">
                 <div class="col">
-                    <h4 class="mb-1 font-weight-normal">$1548.00</h4>
-                    <p class="text-default-secondary">My Balance</p>
+                    <?php echo $wallet; ?>
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-default btn-40 rounded-circle" data-toggle="modal" data-target="#addmoney"><i class="material-icons">add</i></button>

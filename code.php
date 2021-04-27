@@ -35,6 +35,8 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
               </div>
               <span class="arrow material-icons">chevron_right</span>
           </a>';
+          $earnings = '<h4 class="mb-1 font-weight-normal"></h4>
+                  <p class="text-default-secondary">Settlements</p>';
 
             } elseif($acct_type == $the_acct_type2) {
               //getting the business name, if the user is a brand
@@ -99,6 +101,42 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
                       echo "no user found";
                     }
 
+                    // getting the total amount of the sub-account
+                    $curl = curl_init();
+
+                      curl_setopt_array($curl, array(
+                        CURLOPT_URL => "{$app_url}/settlements?subaccount_id=RS_44D6D0DD4B8CE75362200888671CC960",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => "",
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => "GET",
+                        CURLOPT_HTTPHEADER => array(
+                          "Authorization: Bearer {$sphere}"
+                        ),
+                      ));
+
+                      $response = curl_exec($curl);
+
+                      curl_close($curl);
+                      $array = json_decode($response, true);
+                      $fl = $array['data'];//[0]; //['left'];
+
+                      $get = json_encode($fl);
+
+                      $sum = 0;
+                      
+                      foreach($fl as $x_value) {
+                        "gross_amount=" . $x_value['gross_amount'];
+                       
+                         ''.$sum += $x_value['gross_amount'];
+                         
+                      }
+                      //echo $sum;
+                    
+          
                     
                     // feching sub account detaisl
     
@@ -110,11 +148,54 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
                       } else {
                         $single_settlement = "no transaction";
                       }
+
+                      $earnings = '<h4 class="mb-1 font-weight-normal">'.$sumed_currency.' '.$sum.'</h4>
+                      <p class="text-default-secondary">Settlements</p>';
+                      $earnings2 = $sumed_currency.' '.$sum;
+                      $earnings3 = $sum;
                     
 
             }else{
               $acct_type = 'Admin';
+
+               // getting the total amount of the sub-account
+               $curl = curl_init();
+
+               curl_setopt_array($curl, array(
+                 CURLOPT_URL => "{$app_url}/settlements",
+                 CURLOPT_RETURNTRANSFER => true,
+                 CURLOPT_ENCODING => "",
+                 CURLOPT_MAXREDIRS => 10,
+                 CURLOPT_TIMEOUT => 0,
+                 CURLOPT_FOLLOWLOCATION => true,
+                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                 CURLOPT_CUSTOMREQUEST => "GET",
+                 CURLOPT_HTTPHEADER => array(
+                   "Authorization: Bearer {$sphere}"
+                 ),
+               ));
+
+               $response = curl_exec($curl);
+
+               curl_close($curl);
+               $array = json_decode($response, true);
+               $fl = $array['data'];//[0]; //['left'];
+
+               $get = json_encode($fl);
+
+               $sum = 0;
+               
+               foreach($fl as $x_value) {
+                 "gross_amount=" . $x_value['gross_amount'];
+                
+                  ''.$sum += $x_value['gross_amount'];
+                  
+               }
+               //echo $sum;
             }
+
+
+
 
             // getting the sum transactions of this user
             $get_transactions = "SELECT SUM(charged_amount) AS charged_amount FROM transactions WHERE email = '$email'";
@@ -182,6 +263,10 @@ if (isset($_SESSION['phone_number']) && isset($_SESSION['user_email'])) {
                       $is_favour = 'danger';
                     }
                   //exit();
+                 
+
+                  $earnings = '<h4 class="mb-1 font-weight-normal">'.$sumed_currency.' '.$sum.'</h4>
+                  <p class="text-default-secondary">Settlements</p>';
 
                   $recent_transactions .= ' <a href="transaction_details.php?tx_ref='.$trans_id.'">
                   <li class="list-group-item">
@@ -456,7 +541,10 @@ if(isset($_GET['card_id'])){
 $card_numbers = $card_numbers;
 }
 
-    
+$wallet = '<h4 class="mb-1 font-weight-normal" style="color: white;">'.$sumed_currency.' 0.00</h4>
+<p class="text-default-secondary">Wallet</p>';
+$wallet2 = $sumed_currency.' 0.0';
+$wallet3 = 0.0; 
    
 
  ?>

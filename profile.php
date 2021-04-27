@@ -14,7 +14,7 @@
                 </div>
                 <div class="text-left col align-self-center">
                     <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Finwallapp</h5>
+                        <h5 class="mb-0"><?php echo $app_name; ?></h5>
                     </a>
                 </div>
                 <div class="ml-auto col-auto pl-0">
@@ -26,7 +26,7 @@
                         <span class="material-icons">notifications_none</span>
                         <span class="counter"></span>
                     </a>
-                    <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
+                    <a href="profile.php" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
                         <figure class="m-0 background">
                             <img src="img/user1.png" alt="">
                         </figure>
@@ -50,7 +50,8 @@
                 <div class="background">
                     <img src="_img/vector_profile.png" alt="">
                 </div>
-            </div>
+            </div><br>
+            <a href="" class="btn btn-info">Change Image</a>
         </div>
 
         <div class="container mb-4 text-center text-white">

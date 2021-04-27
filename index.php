@@ -12,14 +12,14 @@
                 </div>
                 <div class="text-left col align-self-center">
                     <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Finwallapp</h5>
+                        <h5 class="mb-0"><?php echo $app_name; ?></h5>
                     </a>
                 </div>
                 <div class="ml-auto col-auto pl-0">
                     <button type="button" class="btn btn-link btn-40 colorsettings">
                         <span class="material-icons">color_lens</span>
                     </button>
-                    <a href="notification.html" class=" btn btn-40 btn-link" >
+                    <a href="notification.php" class=" btn btn-40 btn-link" >
                         <span class="material-icons">notifications_none</span>
                         <span class="counter"></span>
                     </a>
@@ -32,9 +32,8 @@
             </div>
         </header>
 
-        <div class="container mt-3 mb-4 text-center">
-            <h2 class="text-white">$ 1,050.00</h2>
-            <p class="text-white mb-4">Total Balance</p>
+        <div class="container mt-3 mb-4 text-center" style="color: white;">
+        <?php echo $wallet; ?>
         </div>
 
         <div class="main-container">
@@ -313,97 +312,7 @@
                 </div>
             </div>
             <!-- PWA add to home display -->
-
-            <div class="container mb-4">
-                <div class="card border-0 mb-3">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-auto pr-0">
-                                <div class="avatar avatar-50 border-0 bg-danger-light rounded-circle text-danger">
-                                    <i class="material-icons vm text-template">card_giftcard</i>
-                                </div>
-                            </div>
-                            <div class="col-auto align-self-center">
-                                <h6 class="mb-1">3 Gift Cards</h6>
-                                <p class="small text-secondary">Click here to see gift cards</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-4">
-                <div class="row mb-3">
-                    <div class="col">
-                        <h6 class="subtitle mb-0">Upcoming Payments </h6>
-                    </div>
-                    <div class="col-auto"><a href="allpayment.html" class="float-right small">View All</a></div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="mb-1">$ 1548.00 </h5>
-                                        <p class="text-secondary">20d to pay electricity bill</p>
-
-                                    </div>
-                                    <div class="col-auto pl-0">
-                                        <button class="btn btn-40 bg-default-light text-default rounded-circle">
-                                            <i class="material-icons">local_atm</i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="progress h-5 mt-3">
-                                    <div class="progress-bar bg-default" role="progressbar" style="width:35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="card ">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <h5 class="mb-1">$ 106.00</h5>
-                                        <p class="text-secondary">33 days to pay gas bill</p>
-                                    </div>
-                                    <div class="col-auto pl-0">
-                                        <button class="btn btn-40 bg-default-light text-default rounded-circle">
-                                            <i class="material-icons">local_atm</i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="progress h-5 mt-3">
-                                    <div class="progress-bar bg-default" role="progressbar" style="width: 65%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="mb-1">Select Menu Type</h6>
-                        <p class="text-secondary small">Open menu after selecting style</p>
-                        <div class="row">
-                            <div class="col-6 col-md-auto">
-                                <div class="custom-control custom-switch">
-                                    <input type="radio" name="menustyle" class="custom-control-input" id="menu-overlay" checked="">
-                                    <label class="custom-control-label" for="menu-overlay">Overlay</label>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-auto">
-                                <div class="custom-control custom-switch">
-                                    <input type="radio" name="menustyle" class="custom-control-input" id="menu-pushcontent">
-                                    <label class="custom-control-label" for="menu-pushcontent">Reveal</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
             <div class="container ">
                 <div class="row">
                     <div class="col text-center">
@@ -472,23 +381,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 class="mb-0">Pages</h6>
-                    </div>
-                    <div class="card-body px-0 pt-0">
-                        <div class="list-group list-group-flush border-top border-color">
-                            <a href="about.html" class="list-group-item list-group-item-action border-color">About</a>
-                            <a href="analytics.html" class="list-group-item list-group-item-action border-color">Analytics</a>
-                            <a href="transactions.html" class="list-group-item list-group-item-action border-color">Transactions</a>
-                            <a href="gift_cards.html" class="list-group-item list-group-item-action border-color">Gift Cards</a>
-                            <a href="error.html" class="list-group-item list-group-item-action border-color">Error</a>
-                            <a href="pages.html" class="list-group-item list-group-item-action border-color text-primary text-center">More 20+ pages</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </div>
     </main>
 

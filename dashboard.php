@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>Finwallapp - Mobile HTML template</title>
+    <title><?php $app_title; ?></title>
 
     <!-- manifest meta -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -44,8 +44,8 @@
                     <div class="icon icon-100 mb-4 rounded-circle">
                         <img src="img/favicon144.png" alt="" class="w-100">
                     </div>
-                    <h4 class="text-default">Finwallapp</h4>
-                    <p class="text-secondary">Mobile HTML template</p>
+                    <h4 class="text-default"><?php echo $app_name; ?></h4>
+                    <p class="text-secondary"><?php echo $app_spinner; ?></p>
                     <div class="loader-ellipsis">
                         <div></div>
                         <div></div>
@@ -76,8 +76,7 @@
         <div class="menu-container">
             <div class="row mb-4">
                 <div class="col">
-                    <h4 class="mb-1 font-weight-normal">$1548.00</h4>
-                    <p class="text-default-secondary">My Balance</p>
+                <?php echo $wallet; ?>
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-default btn-40 rounded-circle" data-toggle="modal" data-target="#addmoney"><i class="material-icons">add</i></button>
@@ -105,7 +104,7 @@
                 </div>
                 <div class="text-left col align-self-center">
                     <a class="navbar-brand" href="#">
-                        <h5 class="mb-0">Finwallapp</h5>
+                        <h5 class="mb-0"><?php echo $app_name; ?></h5>
                     </a>
                 </div>
                 <div class="ml-auto col-auto pl-0">
@@ -113,11 +112,11 @@
                         <span class="material-icons">color_lens</span>
                     </button>
 
-                    <a href="notification.html" class=" btn btn-40 btn-link" >
+                    <a href="notification.php" class=" btn btn-40 btn-link" >
                         <span class="material-icons">notifications_none</span>
                         <span class="counter"></span>
                     </a>
-                    <a href="profile.html" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
+                    <a href="profile.php" class="avatar avatar-30 shadow-sm rounded-circle ml-2">
                         <figure class="m-0 background">
                             <img src="img/user1.png" alt="">
                         </figure>
@@ -128,8 +127,7 @@
 
         <!-- page content start -->
         <div class="container mt-3 mb-4 text-center">
-            <h2 class="text-white"><?php echo $sumed_currency; ?> <?php echo number_format($sub_settlement_gross_amount); ?></h2>
-            <p class="text-white mb-4">Total Transactions</p>
+        <?php echo $wallet; ?>
         </div>
 
         <div class="container text-center overflow-hidden">
@@ -144,7 +142,7 @@
                             <div class="card-body">
                                 <canvas id="doghnutchart" class="mb-3"></canvas>
                                 <p class="text-secondary mb-2">Income</p>
-                                <h6><?php echo $sumed_currency; ?> <?php echo number_format($charged_amount); ?></h6>
+                                <h6><?php echo $sumed_currency; ?> <?php echo $earnings2; ?></h6>
                                 <p class="text-success">10% <span class="material-icons small">call_made</span></p>
                             </div>
                         </div>
@@ -332,7 +330,7 @@
                 <button class="btn btn-info">View Settlements</button>  
                 <div id="table" style="display:none;">  
                      <div id="tr">   
-                          <h4>Settlement</h4>  
+                           
                     </div>  
                 </div>  
            </div>  

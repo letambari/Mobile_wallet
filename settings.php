@@ -55,6 +55,20 @@
                     </div>
                     <div class="card-body px-0 pt-0">
                         <div class="list-group list-group-flush border-top border-color">
+                        <a href="account_settings.php" class="list-group-item list-group-item-action border-color">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <div class="avatar avatar-50 bg-default-light text-default rounded">
+                                            <span class="material-icons">person</span>
+                                        </div>
+                                    </div>
+                                    <div class="col align-self-center pl-0">
+                                        <h6 class="mb-1">Account Settings</h6>
+                                        <p class="text-secondary">Update Account</p>
+                                    </div>
+                                </div>
+                            </a>
+
                             <a href="language.php" class="list-group-item list-group-item-action border-color">
                                 <div class="row">
                                     <div class="col-auto">
